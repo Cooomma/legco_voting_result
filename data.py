@@ -45,10 +45,9 @@ class CommandLine:
         bs = BeautifulSoup(response, features='lxml')
         datas = bs.select('td[class*=candidate]')
         candidates = {}
-        for number, name, votes in [datas[i:i+3] for i in range(0, len(datas), 3)]:
+        for number, name, _ in [datas[i:i+3] for i in range(0, len(datas), 3)]:
             candidate_number = int(number.text)
             candidates.update({int(candidate_number): dict(
-                number=candidate_number,
                 name=name.text.encode().decode('ascii', 'replace').replace(u'\ufffd', ''),
                 votes=0
             )})
